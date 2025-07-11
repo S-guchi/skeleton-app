@@ -1,0 +1,65 @@
+{
+  "expo": {
+    "name": "うさ家事",
+    "slug": "usako-work",
+    "version": "1.0.5",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "usakowork",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.purotoko.usakowork",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "infoPlist": {
+        "UIDeviceFamily": [
+          1
+        ],
+        "NSPhotoLibraryUsageDescription": "ユーザーアイコンを設定するためにフォトライブラリにアクセスします。",
+        "NSUserNotificationUsageDescription": "家事の記録を忘れないために通知を使用します。"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-localization",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/usako_home.png"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "6746ae89-5a22-4025-87ea-c7c1b93a0ca7"
+      },
+      "fullAppName": "うさこ家事ノート"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/6746ae89-5a22-4025-87ea-c7c1b93a0ca7"
+    }
+  }
+}

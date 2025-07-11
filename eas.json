@@ -1,0 +1,34 @@
+{
+  "cli": {
+    "version": ">= 13.3.0"
+  },
+  "build": {
+    "development": {
+      "channel": "development",
+      "environment": "development",
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "environment": "preview"
+    },
+    "production": {
+      "ios": {
+        "distribution": "store"
+      },
+      "channel": "production",
+      "environment": "production"
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "haraguchi.shoya@gmail.com",
+        "ascAppId": "6748254807",
+        "appleTeamId": "97JWUTJ996"
+      }
+    }
+  }
+}
