@@ -1,33 +1,33 @@
 # Skeleton App
 
-A React Native + Expo skeleton application template with authentication, data management, and customizable UI components.
+React Native + Expo を使用したスケルトンアプリケーションテンプレート。認証機能、データ管理、カスタマイズ可能なUIコンポーネントを含んでいます。
 
-## Features
+## 機能
 
-- 🔐 **Authentication**: Supabase Auth with anonymous and email authentication
-- 🎨 **Customizable UI**: Environment variable-based color theming
-- 📱 **Multi-platform**: iOS, Android, and Web support
-- 🌍 **Internationalization**: Japanese and English language support
-- 🗄️ **Database**: Supabase with PostgreSQL and Row Level Security
-- 🎯 **TypeScript**: Full TypeScript support with strict mode
-- 🧪 **Testing**: Jest and React Native Testing Library setup
-- 🎭 **State Management**: React Context + AsyncStorage and React Query
-- 🎨 **Styling**: NativeWind (Tailwind CSS for React Native)
+- 🔐 **認証機能**: Supabase Auth（匿名認証・メール認証）
+- 🎨 **カスタマイズ可能なUI**: 環境変数によるカラーテーマ設定
+- 📱 **マルチプラットフォーム**: iOS、Android、Web対応
+- 🌍 **国際化対応**: 日本語・英語サポート
+- 🗄️ **データベース**: Supabase（PostgreSQL + Row Level Security）
+- 🎯 **TypeScript**: 厳密モードでの完全TypeScriptサポート
+- 🧪 **テスト**: Jest + React Native Testing Library
+- 🎭 **状態管理**: React Context + AsyncStorage + React Query
+- 🎨 **スタイリング**: NativeWind（React Native用Tailwind CSS）
 
-## Tech Stack
+## 技術スタック
 
-- **Framework**: React Native + Expo
-- **Language**: TypeScript
-- **Backend**: Supabase (PostgreSQL + Auth + Storage)
-- **State Management**: React Context + AsyncStorage (global state) + Tanstack React Query (server state)
-- **Styling**: NativeWind (Tailwind CSS for React Native)
-- **Forms**: React Hook Form + Zod
-- **Testing**: Jest + React Native Testing Library
-- **Navigation**: Expo Router (file-based routing)
+- **フレームワーク**: React Native + Expo
+- **言語**: TypeScript
+- **バックエンド**: Supabase（PostgreSQL + Auth + Storage）
+- **状態管理**: React Context + AsyncStorage（グローバル状態） + Tanstack React Query（サーバー状態）
+- **スタイリング**: NativeWind（React Native用Tailwind CSS）
+- **フォーム**: React Hook Form + Zod
+- **テスト**: Jest + React Native Testing Library
+- **ナビゲーション**: Expo Router（ファイルベースルーティング）
 
-## Getting Started
+## セットアップ
 
-### 1. Clone and Install
+### 1. クローンとインストール
 
 ```bash
 git clone <repository-url>
@@ -35,37 +35,37 @@ cd skeleton-app
 npm install
 ```
 
-### 2. Environment Setup
+### 2. 環境設定
 
-Copy the environment template and configure your values:
+環境変数テンプレートをコピーして設定：
 
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` file with your configuration:
+`.env`ファイルを編集：
 
 ```env
-# Application Information
-APP_NAME=Your App Name
-APP_FULL_NAME=Your Full App Name
+# アプリケーション情報
+APP_NAME=あなたのアプリ名
+APP_FULL_NAME=アプリの正式名称
 APP_BUNDLE_ID=com.yourcompany.yourapp
 
-# Color Scheme
+# カラースキーム
 EXPO_PUBLIC_PRIMARY_COLOR=#3B82F6
 EXPO_PUBLIC_PRIMARY_DARK=#2563EB
 EXPO_PUBLIC_PRIMARY_LIGHT=#60A5FA
 EXPO_PUBLIC_SECONDARY_COLOR=#8B5CF6
 EXPO_PUBLIC_SECONDARY_LIGHT=#A78BFA
 
-# Supabase Configuration
+# Supabase設定
 EXPO_PUBLIC_SUPABASE_URL=your-supabase-url
 EXPO_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
 
-### 3. Update App Configuration
+### 3. アプリ設定の更新
 
-Edit `app.json` and replace placeholder values:
+`app.json`のプレースホルダーを実際の値に置き換え：
 
 ```json
 {
@@ -80,65 +80,68 @@ Edit `app.json` and replace placeholder values:
 }
 ```
 
-### 4. Database Setup
+### 4. データベースセットアップ
 
-Set up your Supabase database:
+Supabaseデータベースの設定：
 
 ```bash
-# Start local Supabase (optional)
+# ローカルSupabaseの起動（オプション）
 npx supabase start
 
-# Push database schema
+# データベーススキーマの適用
 npm run db:push
 ```
 
-### 5. Development
+### 5. 開発開始
 
 ```bash
-# Start the development server
+# 開発サーバーの起動
 npm start
 
-# For specific platforms
+# プラットフォーム別実行
 npm run ios
 npm run android
 npm run web
 ```
 
-## Project Structure
+## プロジェクト構造
 
 ```
 skeleton-app/
-├── app/                    # Expo Router pages
-│   ├── (app)/             # Authenticated routes
-│   │   ├── (tabs)/        # Main tab navigation
-│   │   │   ├── index.tsx  # Home dashboard
-│   │   │   ├── record.tsx # Form example
-│   │   │   ├── history.tsx# List example
-│   │   │   ├── ranking.tsx# Ranking example
-│   │   │   └── settings.tsx# Settings
-│   │   └── ...           # Other authenticated pages
-│   ├── sign-in.tsx       # Authentication
-│   ├── sign-up.tsx       # Registration
-│   └── welcome.tsx       # Welcome screen
-├── components/           # Reusable UI components
-│   ├── ui/              # Basic UI components
-│   └── ...              # Feature-specific components
-├── lib/                 # Business logic
-│   ├── api/             # Supabase API client
-│   ├── contexts/        # React Context providers
-│   ├── hooks/           # Custom hooks
-│   ├── locales/         # i18n translations
-│   ├── services/        # Business logic services
-│   └── types/           # TypeScript type definitions
-├── supabase/            # Database migrations and config
-└── assets/              # Static assets
+├── app/                    # Expo Router ページ
+│   ├── (app)/             # 認証済みルート
+│   │   ├── (tabs)/        # メインタブナビゲーション
+│   │   │   ├── index.tsx  # ホーム画面
+│   │   │   └── settings.tsx# 設定画面
+│   │   ├── privacy-policy.tsx    # プライバシーポリシー
+│   │   ├── terms-of-service.tsx  # 利用規約
+│   │   ├── account-deletion.tsx  # アカウント削除
+│   │   ├── email-upgrade.tsx     # メール認証アップグレード
+│   │   └── notification-settings.tsx # 通知設定
+│   ├── sign-in.tsx        # ログイン
+│   ├── sign-up.tsx        # 新規登録
+│   └── welcome.tsx        # ウェルカム画面
+├── components/            # 再利用可能なUIコンポーネント
+│   ├── ui/               # 基本UIコンポーネント
+│   └── ...               # 機能別コンポーネント
+├── lib/                  # ビジネスロジック
+│   ├── contexts/         # React Contextプロバイダー
+│   ├── hooks/            # カスタムフック
+│   ├── locales/          # 国際化翻訳ファイル
+│   ├── services/         # ビジネスロジックサービス
+│   ├── types/            # TypeScript型定義
+│   └── utils/            # ユーティリティ関数
+├── supabase/             # データベースマイグレーションと設定
+│   ├── migrations/       # マイグレーションファイル
+│   └── seed.sql          # シードデータ
+└── assets/               # 静的アセット
 ```
 
-## Customization
+## カスタマイズ
 
-### Colors
+### カラーテーマ
 
-Customize your app's color scheme by setting environment variables:
+環境変数でアプリのカラースキームをカスタマイズ：
 
 ```env
 EXPO_PUBLIC_PRIMARY_COLOR=#your-primary-color
@@ -148,108 +151,121 @@ EXPO_PUBLIC_SECONDARY_COLOR=#your-secondary-color
 EXPO_PUBLIC_SECONDARY_LIGHT=#your-secondary-light
 ```
 
-### App Information
+### アプリ情報
 
-Update your app information:
+アプリケーション情報の更新：
 
 ```env
-APP_NAME=Your App Name
-APP_FULL_NAME=Your Full App Name
+APP_NAME=あなたのアプリ名
+APP_FULL_NAME=アプリの正式名称
 APP_BUNDLE_ID=com.yourcompany.yourapp
 ```
 
-### Localization
+### 国際化
 
-- Edit `lib/locales/ja.json` for Japanese translations
-- Edit `lib/locales/en.json` for English translations
-- Add more language files as needed
+- `lib/locales/ja.json` - 日本語翻訳を編集
+- `lib/locales/en.json` - 英語翻訳を編集
+- 必要に応じて言語ファイルを追加
 
-## Available Scripts
+## 利用可能なスクリプト
 
 ```bash
-# Development
-npm start              # Start Expo development server
-npm run ios            # Run on iOS simulator
-npm run android        # Run on Android emulator
-npm run web            # Run on web browser
+# 開発
+npm start              # Expo開発サーバー起動
+npm run ios            # iOSシミュレータで実行
+npm run android        # Androidエミュレータで実行
+npm run web            # Webブラウザで実行
 
-# Testing
-npm run lint           # Run ESLint
-npm test               # Run all tests
-npm run test:unit      # Run unit tests only
-npm run test:watch     # Run tests in watch mode
-npm run test:coverage  # Generate coverage report
+# テスト・品質管理
+npm run lint           # ESLint実行
+npm test               # 全テスト実行
+npm run test:unit      # ユニットテストのみ実行
+npm run test:watch     # ウォッチモードでテスト実行
+npm run test:coverage  # カバレッジレポート生成
 
-# Database
-npm run db:push        # Apply migrations
-npm run db:pull        # Pull schema changes
-npm run db:migration   # Create new migration
-npm run db:remote-reset # Reset remote database (dev only)
+# データベース
+npm run db:push        # マイグレーション適用
+npm run db:pull        # スキーマ変更取得
+npm run db:migration   # 新しいマイグレーション作成
+npm run db:remote-reset # リモートデータベースリセット（開発時のみ）
 ```
 
-## Sample Screens
+## 画面構成
 
-This skeleton includes 4 main tab screens with sample functionality:
+このスケルトンアプリには以下の画面が含まれています：
 
-1. **Home**: Dashboard with statistics and recent activities
-2. **Record**: Form input example with validation
-3. **History**: List display with filtering capabilities
-4. **Ranking**: Ranking display with charts and leaderboard
-5. **Settings**: App settings and user preferences
+1. **ホーム画面**: アプリのメイン画面
+2. **設定画面**: アプリ設定とユーザー設定
+3. **認証画面**: ログイン・新規登録・ウェルカム画面
+4. **法的文書**: プライバシーポリシー・利用規約
+5. **アカウント管理**: メールアップグレード・アカウント削除
 
-## Authentication Flow
+## 認証フロー
 
-- **Anonymous Authentication**: Users can start using the app immediately
-- **Email Upgrade**: Anonymous users can upgrade to email accounts
-- **Session Management**: Handled by SessionContext and UserContext
+- **匿名認証**: ユーザーはすぐにアプリを使い始められます
+- **メールアップグレード**: 匿名ユーザーはメールアカウントにアップグレード可能
+- **セッション管理**: SessionContextとUserContextで管理
 
-## Database Schema
+## データベーススキーマ
 
-The skeleton includes basic tables for:
+スケルトンには以下の基本テーブルが含まれています：
 
-- Users and profiles
-- Groups (teams/organizations)
-- Tasks and task logs
-- User preferences
+- **auth.users**: Supabase認証ユーザー
+- **public.users**: 拡張ユーザープロファイル
+- **storage.objects**: アバター画像ストレージ
 
-## Testing
+## テスト
 
-Run tests with:
+テストの実行：
 
 ```bash
-npm test              # Run all tests
-npm run test:unit     # Unit tests only
-npm run test:watch    # Watch mode
-npm run test:coverage # With coverage
+npm test              # 全テスト実行
+npm run test:unit     # ユニットテストのみ
+npm run test:watch    # ウォッチモード
+npm run test:coverage # カバレッジ付き
 ```
 
-## Deployment
+## デプロイ
 
-### Building for Production
+### プロダクションビルド
 
 ```bash
-# Build for different platforms
+# プラットフォーム別ビルド
 eas build --platform ios
 eas build --platform android
 eas build --platform web
 ```
 
-### Environment Variables
+### 環境変数
 
-Make sure to set all required environment variables in your deployment platform.
+デプロイメントプラットフォームで必要な環境変数を全て設定してください。
 
-## Contributing
+## プレースホルダーの置き換え
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+アプリをカスタマイズする際は、以下のプレースホルダーを置き換えてください：
 
-## License
+- `{{APP_NAME}}` - アプリ名
+- `{{APP_FULL_NAME}}` - アプリの正式名称
+- `{{APP_BUNDLE_ID}}` - バンドルID
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+これらのプレースホルダーは以下のファイルに含まれています：
+- `app.json`
+- `app/(app)/terms-of-service.tsx`
+- `app/(app)/privacy-policy.tsx`
+- `app/(app)/account-deletion.tsx`
 
-## Support
+## 貢献
 
-For support and questions, please open an issue in the GitHub repository.
+1. リポジトリをフォーク
+2. フィーチャーブランチを作成（`git checkout -b feature/amazing-feature`）
+3. 変更をコミット（`git commit -m 'Add some amazing feature'`）
+4. ブランチにプッシュ（`git push origin feature/amazing-feature`）
+5. プルリクエストを作成
+
+## ライセンス
+
+このプロジェクトはMITライセンスの下で公開されています。詳細はLICENSEファイルをご覧ください。
+
+## サポート
+
+サポートやご質問については、GitHubリポジトリでIssueを作成してください。
