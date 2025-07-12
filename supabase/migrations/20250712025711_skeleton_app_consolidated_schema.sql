@@ -159,7 +159,7 @@ ON CONFLICT (id) DO NOTHING;
 -- 7. STORAGE POLICIES
 -- ==============================================
 
--- Users can upload their own avatars
+-- All authenticated users (including anonymous) can upload their own avatars
 CREATE POLICY "Users can upload their own avatars"
 ON storage.objects
 FOR INSERT
@@ -170,7 +170,7 @@ WITH CHECK (
   AND auth.uid()::text = (regexp_split_to_array((storage.filename(name)), '_'))[1]
 );
 
--- Users can update their own avatars
+-- All authenticated users (including anonymous) can update their own avatars
 CREATE POLICY "Users can update their own avatars"
 ON storage.objects
 FOR UPDATE
@@ -181,7 +181,7 @@ USING (
   AND auth.uid()::text = (regexp_split_to_array((storage.filename(name)), '_'))[1]
 );
 
--- Users can delete their own avatars
+-- All authenticated users (including anonymous) can delete their own avatars
 CREATE POLICY "Users can delete their own avatars"
 ON storage.objects
 FOR DELETE
@@ -192,7 +192,7 @@ USING (
   AND auth.uid()::text = (regexp_split_to_array((storage.filename(name)), '_'))[1]
 );
 
--- Users can view their own avatars
+-- All authenticated users (including anonymous) can view their own avatars
 CREATE POLICY "Users can view their own avatars"
 ON storage.objects
 FOR SELECT
@@ -203,7 +203,7 @@ USING (
   AND auth.uid()::text = (regexp_split_to_array((storage.filename(name)), '_'))[1]
 );
 
--- Authenticated users can view avatars
+-- All authenticated users (including anonymous) can view avatars
 CREATE POLICY "Authenticated users can view avatars"
 ON storage.objects
 FOR SELECT
