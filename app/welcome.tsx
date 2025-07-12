@@ -1,7 +1,9 @@
 import { router } from "expo-router";
 import { useRef, useState } from "react";
-import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Text, TouchableOpacity, View, Alert } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { signInAnonymously } from "@/lib/services/authService";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -9,32 +11,33 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const appIntroSlides = [
   {
     id: 1,
-    title: "ようこそうさ！",
-    description: "一緒に家事をがんばろうね〜！",
-    image: require('@/assets/images/usako_dokusyo.png'),
+    title: "ようこそ！",
+    description: "あなたのアプリへようこそ！",
+    icon: "home",
   },
   {
     id: 2,
-    title: "お疲れさまうさ〜！",
-    description: "やった家事をポチポチ記録するうさ！\nみんなの頑張りが見えるうさよ〜",
-    image: require('@/assets/images/usako/usako_saraarai.png'),
+    title: "機能1",
+    description: "便利な機能を使って\n効率的に作業できます",
+    icon: "checkmark-circle",
   },
   {
     id: 3,
-    title: "家事にポイントを設定うさ！",
-    description: "家事の大変さに応じてポイントを設定できるうさ〜\nみんなで相談して決めるうさよ！",
-    image: require('@/assets/images/usako/usako_sentaku.png'),
+    title: "機能2",
+    description: "設定をカスタマイズして\nあなた好みに調整できます",
+    icon: "settings",
   },
   {
     id: 4,
-    title: "みんなの頑張りを可視化うさ！",
-    description: "誰がどれだけ家事を頑張ったか一目でわかるうさ〜\nグラフやランキングで楽しく確認できるうさよ！",
-    image: require('@/assets/images/usako/usako_korokoro.png'),
+    title: "始めましょう！",
+    description: "さあ、アプリを\n使い始めましょう！",
+    icon: "rocket",
   },
 ];
 
 export default function WelcomeScreen() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isStarting, setIsStarting] = useState(false);
   const flatListRef = useRef<FlatList>(null);
   const insets = useSafeAreaInsets();
 
@@ -51,15 +54,29 @@ export default function WelcomeScreen() {
   const descriptionFontSize = isSmallScreen ? "text-sm" : "text-base";
   const buttonPadding = isSmallScreen ? "py-3" : "py-4";
 
-  const handleStart = () => {
-    router.push("/household/create-with-invite");
+  const handleStart = async () => {
+    if (isStarting) return; // 重複実行を防ぐ
+    
+    setIsStarting(true);
+    try {
+      await signInAnonymously();
+      // 認証成功後、少し待ってから遷移（UserContextが更新されるまで）
+      setTimeout(() => {
+        router.push("/(app)/(tabs)");
+      }, 500);
+    } catch (error) {
+      console.error('匿名認証に失敗しました:', error);
+      Alert.alert(
+        "エラー",
+        "アプリの開始に失敗しました。もう一度お試しください。",
+        [{ text: "OK" }]
+      );
+    } finally {
+      setIsStarting(false);
+    }
   };
 
   const handleJoinHousehold = () => {
-    router.push("/household/join-with-invite");
-  };
-
-  const handleEmailLogin = () => {
     router.push("/sign-in");
   };
 
@@ -78,17 +95,20 @@ export default function WelcomeScreen() {
         }}
       >
         <View className="flex-1 justify-center items-center">
-          {/* ウェルカムスライドの場合はうさこ画像、それ以外は絵文字 */}
           <View className={isSmallScreen ? "mb-3" : "mb-4"}>
-            <Image
-              source={item.image}
+            <View
+              className="bg-blue-500 rounded-full items-center justify-center"
               style={{
                 width: imageSize,
                 height: imageSize,
-                borderRadius: 28
               }}
-              resizeMode="contain"
-            />
+            >
+              <Ionicons
+                name={item.icon as any}
+                size={imageSize * 0.5}
+                color="white"
+              />
+            </View>
           </View>
           <Text className={`${titleFontSize} font-bold text-gray-800 text-center ${isSmallScreen ? 'mb-2' : 'mb-3'}`}>
             {item.title}
@@ -112,12 +132,12 @@ export default function WelcomeScreen() {
   }).current;
 
   return (
-    <View className="flex-1 bg-usako-accent1" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
+    <View className="flex-1 bg-blue-100" style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
       <View className="flex-1 justify-between">
         {/* タイトルエリア */}
         <View className={`items-center ${isSmallScreen ? 'py-2' : 'py-4'}`}>
           <Text className={`${isSmallScreen ? 'text-xl' : 'text-2xl'} font-bold text-gray-800`}>
-            うさこの家事ノート
+            Skeleton App
           </Text>
         </View>
 
@@ -146,11 +166,11 @@ export default function WelcomeScreen() {
             <View
               key={index}
               className={`rounded-full ${index === currentSlide
-                ? 'w-8 h-2 bg-usako-primary'
-                : 'w-2 h-2 bg-usako-secondary'
+                ? 'w-8 h-2 bg-blue-500'
+                : 'w-2 h-2 bg-blue-300'
                 }`}
               style={{
-                shadowColor: index === currentSlide ? '#FF90BB' : 'transparent',
+                shadowColor: index === currentSlide ? '#3B82F6' : 'transparent',
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.3,
                 shadowRadius: 4,
@@ -168,53 +188,48 @@ export default function WelcomeScreen() {
           {/* はじめるボタン */}
           <TouchableOpacity
             onPress={handleStart}
-            className={`bg-usako-primary ${buttonPadding} px-6 rounded-2xl ${isSmallScreen ? 'mb-2' : 'mb-3'}`}
+            disabled={isStarting}
+            className={`${isStarting ? 'bg-blue-400' : 'bg-blue-500'} ${buttonPadding} px-6 rounded-2xl ${isSmallScreen ? 'mb-2' : 'mb-3'}`}
             style={{
-              shadowColor: '#FF90BB',
+              shadowColor: '#3B82F6',
               shadowOffset: { width: 0, height: 6 },
               shadowOpacity: 0.3,
               shadowRadius: 12,
               elevation: 8,
             }}
           >
-            <Text className={`text-white font-bold ${isSmallScreen ? 'text-base' : 'text-lg'} text-center`}>
-              はじめる
-            </Text>
+            <View className="flex-row items-center justify-center">
+              {isStarting && (
+                <Ionicons 
+                  name="refresh" 
+                  size={isSmallScreen ? 16 : 20} 
+                  color="white" 
+                  style={{ marginRight: 8 }}
+                />
+              )}
+              <Text className={`text-white font-bold ${isSmallScreen ? 'text-base' : 'text-lg'} text-center`}>
+                {isStarting ? '開始中...' : 'はじめる'}
+              </Text>
+            </View>
           </TouchableOpacity>
 
-          {/* 招待された方はこちらボタン */}
+          {/* サインインボタン */}
           <TouchableOpacity
             onPress={handleJoinHousehold}
-            className={`border-2 border-usako-secondary ${buttonPadding} px-6 rounded-2xl bg-white ${isSmallScreen ? 'mb-2' : 'mb-3'}`}
+            className={`border-2 border-blue-300 ${buttonPadding} px-6 rounded-2xl bg-white ${isSmallScreen ? 'mb-2' : 'mb-3'}`}
             style={{
-              shadowColor: '#FF90BB',
+              shadowColor: '#3B82F6',
               shadowOffset: { width: 0, height: 4 },
               shadowOpacity: 0.15,
               shadowRadius: 8,
               elevation: 4,
             }}
           >
-            <Text className={`text-usako-primary font-semibold ${isSmallScreen ? 'text-base' : 'text-lg'} text-center`}>
-              招待された方はこちら
+            <Text className={`text-blue-500 font-semibold ${isSmallScreen ? 'text-base' : 'text-lg'} text-center`}>
+              ログイン
             </Text>
           </TouchableOpacity>
 
-          {/* メール認証ログインボタン */}
-          <TouchableOpacity
-            onPress={handleEmailLogin}
-            className={`${buttonPadding} px-6 rounded-2xl bg-usako-accent1 border border-usako-secondary ${isSmallScreen ? 'mb-2' : 'mb-4'}`}
-            style={{
-              shadowColor: '#FF90BB',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.1,
-              shadowRadius: 6,
-              elevation: 3,
-            }}
-          >
-            <Text className={`text-usako-primary text-center ${isSmallScreen ? 'text-sm' : 'text-base'} font-semibold`}>
-              メールアドレスでログイン
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
     </View>

@@ -9,31 +9,11 @@ export interface ApiResponse<T> {
   error?: string;
 }
 
-// ビューモデル用の拡張型
-export interface HouseholdMemberWithUser {
-  id: string;
-  householdId: string;
-  userId: string;
-  role: 'admin' | 'member';
-  joinedAt: Date;
-  user: Tables<'users'>;
-}
+// ビューモデル用の拡張型（household機能除去のため、関連型を削除）
 
-export interface ChoreWithLogs {
-  id: string;
-  household_id: string;
-  name: string;
-  reward_amount: number;
-  order_index: number;
-  is_active: boolean;
-  created_at: Date;
-  updated_at: Date;
-  todayLogs: ChoreLogWithUser[];
-}
-
+// 簡素化された家事ログ型
 export interface ChoreLogWithUser {
   id: string;
-  household_id: string;
   chore_id: string | null; // 家事削除後はnullになる可能性
   performed_by: string;
   performed_at: Date;

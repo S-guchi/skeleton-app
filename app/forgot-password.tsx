@@ -18,7 +18,7 @@ type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 export default function ForgotPasswordScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [usakoMessage, setUsakoMessage] = useState("パスワードを忘れちゃったうさ？大丈夫うさ〜！");
+  const [statusMessage, setStatusMessage] = useState("パスワードを忘れましたか？大丈夫です！");
   const insets = useSafeAreaInsets();
 
   const {
@@ -34,14 +34,14 @@ export default function ForgotPasswordScreen() {
 
   const onSubmit = async (data: ForgotPasswordFormData) => {
     setIsLoading(true);
-    setUsakoMessage("メール送信中うさ〜。ちょっと待っててね！");
+    setStatusMessage("メール送信中です。少々お待ちください！");
     try {
       // Mock password reset API call
       await new Promise(resolve => setTimeout(resolve, 1500));
       setIsSubmitted(true);
     } catch {
-      setUsakoMessage("あれ？メールが送れないうさ。もう一度試してみてうさ〜。");
-      Alert.alert("うさこからのお知らせ", "パスワードリセットメールの送信に失敗しちゃったうさ。");
+      setStatusMessage("メールの送信に失敗しました。もう一度試してみてください。");
+      Alert.alert("エラー", "パスワードリセットメールの送信に失敗しました。");
     } finally {
       setIsLoading(false);
     }
@@ -49,49 +49,47 @@ export default function ForgotPasswordScreen() {
 
   if (isSubmitted) {
     return (
-      <View className="flex-1 bg-usako-accent1 dark:bg-gray-900 px-6" style={{ paddingTop: insets.top + 16, paddingBottom: 32 }}>
+      <View className="flex-1 bg-blue-100 dark:bg-gray-900 px-6" style={{ paddingTop: insets.top + 16, paddingBottom: 32 }}>
         {/* 戻るボタン */}
         <TouchableOpacity 
           onPress={() => router.back()}
           className="self-start mb-6 p-2"
         >
           <View className="flex-row items-center">
-            <Ionicons name="arrow-back" size={24} color="#FF90BB" />
-            <Text className="text-usako-primary ml-2 font-medium">戻る</Text>
+            <Ionicons name="arrow-back" size={24} color="#3B82F6" />
+            <Text className="text-blue-500 ml-2 font-medium">戻る</Text>
           </View>
         </TouchableOpacity>
         
         <View className="flex-1 justify-center">
-          {/* うさこのキャラクター */}
+          {/* アプリアイコン */}
           <View className="items-center mb-4">
-            <Image 
-              source={require("@/assets/images/usako_home.png")}
-              style={{ width: 96, height: 96 }}
-              resizeMode="contain"
-            />
+            <View className="w-24 h-24 bg-blue-500 dark:bg-blue-600 rounded-full items-center justify-center">
+              <Text className="text-5xl">🔑</Text>
+            </View>
           </View>
           
           {/* 成功メッセージ */}
           <View className="mb-8 px-4">
             <View className="bg-white dark:bg-gray-800 border-2 border-gray-800 dark:border-gray-700 rounded-xl px-4 py-3">
               <Text className="text-gray-800 dark:text-gray-200 text-sm font-medium text-center">
-                メール送信完了うさ〜！
+                メール送信完了！
               </Text>
             </View>
           </View>
           
-          <Text className="text-2xl font-bold text-usako-primary dark:text-usako-primary-light mb-4 text-center">
-            メールを確認してねうさ！
+          <Text className="text-2xl font-bold text-blue-500 dark:text-blue-400 mb-4 text-center">
+            メールを確認してください！
           </Text>
           <Text className="text-gray-600 dark:text-gray-400 text-center mb-8">
-            パスワードリセットの手順を送ったうさ〜。
-            メールボックスを確認してみてうさ！
+            パスワードリセットの手順を送信しました。
+            メールボックスを確認してください！
           </Text>
           <Link href="/sign-in" asChild>
             <TouchableOpacity>
-              <Button className="bg-usako-primary hover:bg-usako-primary-dark">
+              <Button className="bg-blue-500 hover:bg-blue-600">
                 <Text className="text-white font-semibold text-center">
-                  ログイン画面に戻るうさ！
+                  ログイン画面に戻る
                 </Text>
               </Button>
             </TouchableOpacity>
@@ -106,7 +104,7 @@ export default function ForgotPasswordScreen() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       className="flex-1"
     >
-      <ScrollView className="flex-1 bg-usako-accent1 dark:bg-gray-900">
+      <ScrollView className="flex-1 bg-blue-100 dark:bg-gray-900">
         <View className="flex-1 px-6" style={{ paddingTop: insets.top + 16, paddingBottom: 32 }}>
           {/* 戻るボタン */}
           <TouchableOpacity 
@@ -114,35 +112,33 @@ export default function ForgotPasswordScreen() {
             className="self-start mb-6 p-2"
           >
             <View className="flex-row items-center">
-              <Ionicons name="arrow-back" size={24} color="#FF90BB" />
-              <Text className="text-usako-primary ml-2 font-medium">戻る</Text>
+              <Ionicons name="arrow-back" size={24} color="#3B82F6" />
+              <Text className="text-blue-500 ml-2 font-medium">戻る</Text>
             </View>
           </TouchableOpacity>
           
-          {/* うさこのキャラクター */}
+          {/* アプリアイコン */}
           <View className="items-center mb-4">
-            <Image 
-              source={require("@/assets/images/usako_home.png")}
-              style={{ width: 80, height: 80 }}
-              resizeMode="contain"
-            />
+            <View className="w-20 h-20 bg-blue-500 dark:bg-blue-600 rounded-full items-center justify-center">
+              <Text className="text-4xl">🔑</Text>
+            </View>
           </View>
           
-          {/* うさこのメッセージ */}
+          {/* ステータスメッセージ */}
           <View className="mb-6 px-4">
             <View className="bg-white dark:bg-gray-800 border-2 border-gray-800 dark:border-gray-700 rounded-xl px-4 py-3">
               <Text className="text-gray-800 dark:text-gray-200 text-sm font-medium text-center">
-                {usakoMessage}
+                {statusMessage}
               </Text>
             </View>
           </View>
           
           <View className="mb-8">
-            <Text className="text-3xl font-bold text-usako-primary dark:text-usako-primary-light mb-2 text-center">
+            <Text className="text-3xl font-bold text-blue-500 dark:text-blue-400 mb-2 text-center">
               パスワードリセット
             </Text>
             <Text className="text-gray-600 dark:text-gray-400 text-center">
-              メールアドレスを入力してくださいうさ〜
+              メールアドレスを入力してください
             </Text>
           </View>
 
@@ -173,17 +169,17 @@ export default function ForgotPasswordScreen() {
           <Button
             onPress={handleSubmit(onSubmit)}
             disabled={isLoading}
-            className="mb-4 bg-usako-primary hover:bg-usako-primary-dark"
+            className="mb-4 bg-blue-500 hover:bg-blue-600"
           >
             <Text className="text-white font-semibold text-center">
-              {isLoading ? "送信中うさ..." : "リセットメール送信うさ！"}
+              {isLoading ? "送信中..." : "リセットメール送信"}
             </Text>
           </Button>
 
           <Link href="/sign-in" asChild>
             <TouchableOpacity>
-              <Text className="text-usako-primary dark:text-usako-primary-light text-center">
-                ログイン画面に戻るうさ
+              <Text className="text-blue-500 dark:text-blue-400 text-center">
+                ログイン画面に戻る
               </Text>
             </TouchableOpacity>
           </Link>

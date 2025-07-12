@@ -19,10 +19,7 @@ const ERROR_MESSAGES: { [key: string]: string } = {
   'Unique constraint violation': '既に存在するデータです',
   'Check constraint violation': '入力データが制約に違反しています',
   
-  // 世帯関連エラー
-  '世帯IDが見つかりません': '世帯情報が見つかりません。再度ログインしてください',
-  'Household not found': '世帯が見つかりません',
-  'Member already exists': 'このユーザーは既にメンバーです',
+  // 削除済み: 世帯関連エラー（household機能除去のため）
   
   // 家事関連エラー
   'Chore not found': '家事項目が見つかりません',
@@ -45,7 +42,6 @@ export interface ErrorContext {
   action?: string;
   component?: string;
   userId?: string;
-  householdId?: string;
   additionalInfo?: Record<string, any>;
 }
 

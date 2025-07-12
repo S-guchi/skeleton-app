@@ -112,7 +112,7 @@ export default function AccountDeletionScreen() {
             </Text>
 
             <Text className="text-sm text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-              うさこ家事共有アプリのアカウント削除について、以下の手順と注意事項をご確認ください。
+              {{APP_NAME}}のアカウント削除について、以下の手順と注意事項をご確認ください。
             </Text>
 
             {/* 重要な注意事項 */}

@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "うさ家事",
-    "slug": "usako-work",
+    "name": "{{APP_NAME}}",
+    "slug": "skeleton-app",
     "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "usakowork",
+    "scheme": "skeletonapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.purotoko.usakowork",
+      "bundleIdentifier": "{{APP_BUNDLE_ID}}",
       "config": {
         "usesNonExemptEncryption": false
       },
@@ -41,7 +41,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/images/usako_home.png"
+          "icon": "./assets/images/notification-icon.png"
         }
       ]
     ],
@@ -53,7 +53,7 @@
       "eas": {
         "projectId": "6746ae89-5a22-4025-87ea-c7c1b93a0ca7"
       },
-      "fullAppName": "うさこ家事ノート"
+      "fullAppName": "{{APP_FULL_NAME}}"
     },
     "runtimeVersion": {
       "policy": "appVersion"

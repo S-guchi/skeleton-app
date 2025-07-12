@@ -15,7 +15,7 @@ jest.mock('@/lib/hooks/useLocalization', () => ({
     t: (key: string) => {
       const translations: { [key: string]: string } = {
         'privacy.title': 'プライバシーポリシー',
-        'privacy.appName': 'うさこ家事共有アプリ',
+        'privacy.appName': '{{APP_NAME}}',
         'privacy.personalInfo': '個人情報',
         'privacy.personalInfoDescription': '「個人情報」とは，個人情報保護法にいう「個人情報」を指すものとし，生存する個人に関する情報であって，当該情報に含まれる氏名，生年月日，住所，電話番号，連絡先その他の記述等により特定の個人を識別できる情報及び容貌，指紋，声紋にかかるデータ，及び健康保険証の保険者番号などの当該情報単体から特定の個人を識別できる情報（個人識別情報）を指します。',
         'privacy.collectionMethod': '個人情報の収集方法',
@@ -42,7 +42,7 @@ describe('PrivacyPolicyScreen', () => {
 
   it('アプリ名が表示される', () => {
     render(<PrivacyPolicyScreen />);
-    expect(screen.getByText('うさこ家事共有アプリ')).toBeTruthy();
+    expect(screen.getByText('{{APP_NAME}}')).toBeTruthy();
   });
 
   it('個人情報の定義が表示される', () => {

@@ -3,7 +3,7 @@ import * as StoreReview from 'expo-store-review';
 import { Platform } from 'react-native';
 import { useStorageState } from '@/lib/contexts/useStorageState';
 import { useUser } from '@/lib/contexts/UserContext';
-import { getChoreLogsTotalCount } from '@/lib/queries/chores';
+// getChoreLogsTotalCount インポートを削除（household機能除去のため）
 
 const STORE_REVIEW_THRESHOLD = 15;
 const STORE_REVIEW_KEY = 'has_requested_store_review';
@@ -21,15 +21,15 @@ export function useStoreReview() {
   const [isInitialized, setIsInitialized] = useState(false);
 
   /**
-   * 初回のみデータベースから実際の総数を取得してローカルカウンターを初期化
+   * 初回のみローカルカウンターを初期化
    */
   useEffect(() => {
     const initializeCounter = async () => {
-      if (!user?.householdId || isInitialized || choreLogsCount?.[1]) return;
+      if (!user?.id || isInitialized || choreLogsCount?.[1]) return;
 
       try {
-        const actualCount = await getChoreLogsTotalCount(user.householdId);
-        await setChoreLogsCount(actualCount.toString());
+        // ユーザーベースのカウンターを0で初期化
+        await setChoreLogsCount('0');
         setIsInitialized(true);
       } catch (error) {
         console.error('家事ログカウンター初期化エラー:', error);
@@ -40,7 +40,7 @@ export function useStoreReview() {
     };
 
     initializeCounter();
-  }, [user?.householdId, choreLogsCount, setChoreLogsCount, isInitialized]);
+  }, [user?.id, choreLogsCount, setChoreLogsCount, isInitialized]);
 
   /**
    * ストアレビューリクエストを実行
@@ -113,18 +113,17 @@ export function useStoreReview() {
   }, [hasRequestedReview, choreLogsCount, setChoreLogsCount, requestStoreReview]);
 
   /**
-   * カウンターをリセットして再同期
+   * カウンターをリセット
    */
   const resetCounter = useCallback(async () => {
-    if (!user?.householdId) return;
+    if (!user?.id) return;
 
     try {
-      const actualCount = await getChoreLogsTotalCount(user.householdId);
-      await setChoreLogsCount(actualCount.toString());
+      await setChoreLogsCount('0');
     } catch (error) {
       console.error('カウンターリセットエラー:', error);
     }
-  }, [user?.householdId, setChoreLogsCount]);
+  }, [user?.id, setChoreLogsCount]);
 
   return {
     incrementAndCheckReview,

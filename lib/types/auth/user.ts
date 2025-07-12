@@ -10,8 +10,7 @@
  *   id: 'user-123',
  *   name: '山田太郎',
  *   email: 'yamada@example.com',
- *   hasCompletedOnboarding: true,
- *   householdId: 'household-456'
+ *   hasCompletedOnboarding: true
  * };
  * ```
  */
@@ -30,9 +29,6 @@ export interface AuthUser {
   
   /** オンボーディング完了フラグ */
   hasCompletedOnboarding?: boolean;
-  
-  /** 所属世帯のID（世帯に参加していない場合はnull） */
-  householdId?: string | null;
 }
 
 /**

@@ -21,7 +21,7 @@ type EmailUpgradeFormData = z.infer<typeof emailUpgradeSchema>;
 
 export default function EmailUpgradeScreen() {
   const [isLoading, setIsLoading] = useState(false);
-  const [usakoMessage, setUsakoMessage] = useState("メールアドレスを登録してデータを守るうさ〜！");
+  const [statusMessage, setStatusMessage] = useState("メールアドレスを登録してデータを守りましょう！");
   const { user } = useUser();
   const { upgradeToEmailUser } = useSession();
   const insets = useSafeAreaInsets();
@@ -40,8 +40,8 @@ export default function EmailUpgradeScreen() {
 
   const onSubmit = async (data: EmailUpgradeFormData) => {
     if (!data || !data.email || !data.password) {
-      setUsakoMessage("メールアドレスとパスワードを入力してほしいうさ〜！");
-      Alert.alert("うさこからのお知らせ", "メールアドレスとパスワードを入力してほしいうさ〜！");
+      setStatusMessage("メールアドレスとパスワードを入力してください！");
+      Alert.alert("エラー", "メールアドレスとパスワードを入力してください！");
       return;
     }
     
@@ -51,7 +51,7 @@ export default function EmailUpgradeScreen() {
     }
     
     setIsLoading(true);
-    setUsakoMessage("アカウントを昇格中うさ〜。ちょっと待っててね！");
+    setStatusMessage("アカウントを昇格中です。少々お待ちください！");
     
     try {
       await upgradeToEmailUser(data.email, data.password, user.name);
@@ -60,7 +60,7 @@ export default function EmailUpgradeScreen() {
       await new Promise(resolve => setTimeout(resolve, 500));
       
       setIsLoading(false);
-      setUsakoMessage("認証メールを送信したうさ〜！メールボックスを確認してね！");
+      setStatusMessage("認証メールを送信しました！メールボックスを確認してください！");
       
       Alert.alert(
         "認証メール送信完了",
@@ -79,8 +79,8 @@ export default function EmailUpgradeScreen() {
     } catch (error) {
       setIsLoading(false);
       const errorMessage = getAuthErrorMessage(error);
-      setUsakoMessage("あれ？アカウント昇格できないうさ。入力内容を確認してみてうさ〜。");
-      Alert.alert("うさこからのお知らせ", errorMessage);
+      setStatusMessage("アカウント昇格に失敗しました。入力内容を確認してください。");
+      Alert.alert("エラー", errorMessage);
     }
   };
 
@@ -89,7 +89,7 @@ export default function EmailUpgradeScreen() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       className="flex-1"
     >
-      <ScrollView className="flex-1 bg-usako-accent1 dark:bg-gray-900">
+      <ScrollView className="flex-1 bg-blue-100 dark:bg-gray-900">
         <View className="flex-1 px-6" style={{ paddingTop: insets.top + 16, paddingBottom: 32 }}>
           {/* 戻るボタン */}
           <TouchableOpacity 
@@ -97,35 +97,33 @@ export default function EmailUpgradeScreen() {
             className="self-start mb-6 p-2"
           >
             <View className="flex-row items-center">
-              <Ionicons name="arrow-back" size={24} color="#FF90BB" />
-              <Text className="text-usako-primary ml-2 font-medium">戻る</Text>
+              <Ionicons name="arrow-back" size={24} color="#3B82F6" />
+              <Text className="text-blue-500 ml-2 font-medium">戻る</Text>
             </View>
           </TouchableOpacity>
           
-          {/* うさこのキャラクター */}
+          {/* アプリアイコン */}
           <View className="items-center mb-4">
-            <Image 
-              source={require("@/assets/images/usako_home.png")}
-              style={{ width: 80, height: 80 }}
-              resizeMode="contain"
-            />
+            <View className="w-20 h-20 bg-blue-500 dark:bg-blue-600 rounded-full items-center justify-center">
+              <Text className="text-4xl">📧</Text>
+            </View>
           </View>
           
-          {/* うさこのメッセージ */}
+          {/* ステータスメッセージ */}
           <View className="mb-6 px-4">
             <View className="bg-white dark:bg-gray-800 border-2 border-gray-800 dark:border-gray-700 rounded-xl px-4 py-3">
               <Text className="text-gray-800 dark:text-gray-200 text-sm font-medium text-center">
-                {usakoMessage}
+                {statusMessage}
               </Text>
             </View>
           </View>
           
           <View className="mb-8">
-            <Text className="text-3xl font-bold text-usako-primary dark:text-usako-primary-light mb-2 text-center">
+            <Text className="text-3xl font-bold text-blue-500 dark:text-blue-400 mb-2 text-center">
               メールアカウント登録
             </Text>
             <Text className="text-gray-600 dark:text-gray-400 text-center">
-              データを安全に保存するうさ〜！
+              データを安全に保存しましょう！
             </Text>
           </View>
 
@@ -211,10 +209,10 @@ export default function EmailUpgradeScreen() {
           <Button
             onPress={handleSubmit(onSubmit)}
             disabled={isLoading}
-            className="mb-4 bg-usako-primary hover:bg-usako-primary-dark"
+            className="mb-4 bg-blue-500 hover:bg-blue-600"
           >
             <Text className="text-white font-semibold text-center">
-              {isLoading ? "登録中うさ..." : "メールアカウント登録うさ！"}
+              {isLoading ? "登録中..." : "メールアカウント登録"}
             </Text>
           </Button>
 

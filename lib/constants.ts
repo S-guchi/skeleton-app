@@ -17,23 +17,23 @@ export const NAV_THEME = {
   },
 };
 
-// うさこの家事ノートのカラーパレット
+// アプリケーションのカラーパレット
 export const COLORS = {
-  // メインブランドカラー
-  PRIMARY: "#FF90BB",           // メインカラー
-  PRIMARY_DARK: "#E671A2",      // メインカラー（濃）
-  PRIMARY_LIGHT: "#FFB4CC",     // メインカラー（薄）
+  // メインブランドカラー（環境変数から上書き可能）
+  PRIMARY: process.env.EXPO_PUBLIC_PRIMARY_COLOR || "#3B82F6",           // デフォルト：青
+  PRIMARY_DARK: process.env.EXPO_PUBLIC_PRIMARY_DARK || "#2563EB",      
+  PRIMARY_LIGHT: process.env.EXPO_PUBLIC_PRIMARY_LIGHT || "#60A5FA",     
 
   // サブカラー
-  SECONDARY: "#FFC1DA",         // サブカラー
-  SECONDARY_LIGHT: "#FFD6E5",   // サブカラー（薄）
+  SECONDARY: process.env.EXPO_PUBLIC_SECONDARY_COLOR || "#8B5CF6",      // デフォルト：紫
+  SECONDARY_LIGHT: process.env.EXPO_PUBLIC_SECONDARY_LIGHT || "#A78BFA",
 
   // アクセントカラー
-  ACCENT_1: "#F8F8E1",          // クリーム色
-  ACCENT_1_DARK: "#F0F0C8",     // クリーム色（濃）
-  ACCENT_2: "#8ACCD5",          // ターコイズブルー
-  ACCENT_2_DARK: "#71B8C2",     // ターコイズブルー（濃）
-  ACCENT_2_LIGHT: "#A3D7E0",    // ターコイズブルー（薄）
+  ACCENT_1: "#F3F4F6",          // ライトグレー
+  ACCENT_1_DARK: "#E5E7EB",     
+  ACCENT_2: "#10B981",          // グリーン
+  ACCENT_2_DARK: "#059669",     
+  ACCENT_2_LIGHT: "#34D399",    
 
   // グレーシステム
   GRAY_100: "#F3F4F6",
@@ -47,9 +47,10 @@ export const COLORS = {
   // ユーティリティ
   WHITE: "#FFFFFF",
   BORDER_LIGHT: "#E5E7EB",
-  SUCCESS: "#8ACCD5",           // 成功表示をターコイズに変更
+  SUCCESS: "#10B981",           
   ERROR: "#EF4444",
-  BLUE: "#3B82F6",
+  WARNING: "#F59E0B",
+  INFO: "#3B82F6",
 
   // 状態色
   DISABLED: "#E5E7EB",
@@ -60,55 +61,3 @@ export const APP_CONSTANTS = {
   // デフォルト設定
   DEFAULT_SETTLEMENT_DAY: 25,
 } as const;
-
-// 新規世帯作成時の標準家事データ
-export const DEFAULT_CHORES = [
-  {
-    name: "掃除機かけ",
-    description: "リビングと寝室の掃除機がけ",
-    reward_amount: 300,
-    order_index: 1,
-  },
-  {
-    name: "洗濯",
-    description: "洗濯物を洗って干す",
-    reward_amount: 200,
-    order_index: 2,
-  },
-  {
-    name: "食器洗い",
-    description: "食事後の食器洗いと片付け",
-    reward_amount: 150,
-    order_index: 3,
-  },
-  {
-    name: "ゴミ出し",
-    description: "燃えるゴミ・資源ゴミの分別と回収",
-    reward_amount: 100,
-    order_index: 4,
-  },
-  {
-    name: "お風呂掃除",
-    description: "浴槽とバスルーム全体の掃除",
-    reward_amount: 400,
-    order_index: 5,
-  },
-  {
-    name: "トイレ掃除",
-    description: "トイレの清掃と消毒",
-    reward_amount: 250,
-    order_index: 6,
-  },
-  {
-    name: "料理",
-    description: "朝食・昼食・夕食の準備",
-    reward_amount: 500,
-    order_index: 7,
-  },
-  {
-    name: "買い物",
-    description: "日用品や食材の買い出し",
-    reward_amount: 200,
-    order_index: 8,
-  },
-];

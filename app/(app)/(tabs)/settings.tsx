@@ -2,7 +2,6 @@ import EmailDisplaySection from "@/components/EmailDisplaySection";
 import AvatarPicker from "@/components/ui/AvatarPicker";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { UsakoIcon } from "@/components/ui/UsakoIcon";
 import { useSession } from "@/lib/contexts/SessionContext";
 import { useUser } from "@/lib/contexts/UserContext";
 import { useLocalization } from "@/lib/hooks/useLocalization";
@@ -85,7 +84,7 @@ export default function SettingsScreen() {
   };
 
   const handleAboutApp = async () => {
-    const url = 'https://usako-chore-app.vercel.app';
+    const url = process.env.EXPO_PUBLIC_ABOUT_APP_URL || 'https://yourapp.com';
 
     try {
       const canOpen = await Linking.canOpenURL(url);
@@ -115,7 +114,7 @@ export default function SettingsScreen() {
         // },
         {
           title: isAnonymousUser ? "メールアドレス登録" : "メール認証済み！",
-          subtitle: isAnonymousUser ? "未登録の場合、スマホ破損時や機種変更時にデータ復旧ができないうさ。ご登録をお願いするうさ!" : "アカウントは安全に保護されています",
+          subtitle: isAnonymousUser ? "未登録の場合、スマホ破損時や機種変更時にデータ復旧ができません。ご登録をお願いします。" : "アカウントは安全に保護されています",
           onPress: () => {
             if (isAnonymousUser) {
               router.push("/(app)/email-upgrade");
@@ -128,24 +127,6 @@ export default function SettingsScreen() {
           title: t('settings.notifications'),
           subtitle: t('settings.notifications'),
           onPress: () => router.push("/(app)/notification-settings"),
-          disabled: false,
-        },
-      ],
-    },
-    {
-      title: "家事・世帯管理",
-      icon: "home",
-      items: [
-        {
-          title: t('settings.manageChores'),
-          subtitle: t('chores.addChore'),
-          onPress: () => router.push("/(app)/chores"),
-          disabled: false,
-        },
-        {
-          title: t('settings.manageMembers'),
-          subtitle: t('members.inviteMembers'),
-          onPress: () => router.push("/(app)/members"),
           disabled: false,
         },
       ],
@@ -298,11 +279,10 @@ export default function SettingsScreen() {
           </View>
         )}
 
-        {/* うさこ */}
+        {/* アプリ情報 */}
         <View className="mt-8 items-center">
-          <UsakoIcon size="xlarge" style={{ marginBottom: 8 }} />
           <Text className="text-xs text-gray-500 dark:text-gray-500">
-            うさこの家事ノート v1.0.0
+            アプリバージョン v1.0.0
           </Text>
         </View>
       </View>

@@ -1,7 +1,6 @@
 import { t } from '@/lib/i18n';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { UsakoIcon } from '@/components/ui/UsakoIcon';
 
 interface Props {
   children: ReactNode;
@@ -59,8 +58,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <View className="flex-1 items-center justify-center bg-gray-50 dark:bg-gray-900 px-6">
           <View className="items-center">
             <View className="flex-row items-center mb-4">
-              <UsakoIcon size="xlarge" />
-              <Text className="text-4xl ml-2">💦</Text>
+              <Text className="text-6xl">⚠️</Text>
             </View>
             <Text className="text-xl font-bold text-gray-900 dark:text-white mb-2 text-center">
               {t('errors.errorOccurred')}
@@ -80,7 +78,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
             <TouchableOpacity
               onPress={this.handleRetry}
-              className="bg-usako-primary dark:bg-pink-600 px-6 py-3 rounded-lg"
+              className="bg-blue-500 dark:bg-blue-600 px-6 py-3 rounded-lg"
             >
               <Text className="text-white font-semibold text-center">
                 {t('common.retry')}

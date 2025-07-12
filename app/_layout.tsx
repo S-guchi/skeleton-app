@@ -48,7 +48,6 @@ function InitialLayout() {
                       pathname === '/forgot-password' || 
                       pathname === '/welcome';
     
-    const isHouseholdSetup = pathname.startsWith('/household/');
     const isMainApp = pathname.startsWith('/(app)/');
 
     if (__DEV__) console.log('🔄 Route check:', { 
@@ -73,14 +72,14 @@ function InitialLayout() {
 
     // 3. セッション・ユーザーあり
     if (session && user) {
-      // オンボーディング未完了 → welcome画面へ（メインアプリ・認証フロー・世帯設定以外）
-      if (!user.hasCompletedOnboarding && !isMainApp && !isAuthFlow && !isHouseholdSetup) {
+      // オンボーディング未完了 → welcome画面へ（メインアプリ・認証フロー以外）
+      if (!user.hasCompletedOnboarding && !isMainApp && !isAuthFlow) {
         router.replace('/welcome');
         return;
       }
 
-      // オンボーディング完了済み → メインアプリへ（認証フロー・世帯設定にいる場合）
-      if (user.hasCompletedOnboarding && (isAuthFlow || isHouseholdSetup)) {
+      // オンボーディング完了済み → メインアプリへ（認証フローにいる場合）
+      if (user.hasCompletedOnboarding && isAuthFlow) {
         router.replace('/(app)/(tabs)');
         return;
       }
@@ -101,8 +100,6 @@ function InitialLayout() {
       <Stack.Screen name="sign-in" options={{ headerShown: false }} />
       <Stack.Screen name="sign-up" options={{ headerShown: false }} />
       <Stack.Screen name="forgot-password" options={{ headerShown: false }} />
-      <Stack.Screen name="household/create-with-invite" options={{ headerShown: false }} />
-      <Stack.Screen name="household/join-with-invite" options={{ headerShown: false }} />
       <Stack.Screen name="(app)" options={{ headerShown: false }} />
     </Stack>
   );

@@ -3,7 +3,6 @@ export interface AuthUser {
   name: string;
   avatar?: string;
   hasCompletedOnboarding?: boolean;
-  householdId?: string | null;
 }
 
 export interface UserContextType {

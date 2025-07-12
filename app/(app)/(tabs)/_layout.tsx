@@ -41,36 +41,6 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="record"
-        options={{
-          title: t('navigation.record'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="add-circle" size={size} color={color} />
-          ),
-          headerTitle: t('record.title'),
-        }}
-      />
-      <Tabs.Screen
-        name="history"
-        options={{
-          title: t('navigation.history'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="list" size={size} color={color} />
-          ),
-          headerTitle: t('history.title'),
-        }}
-      />
-      <Tabs.Screen
-        name="ranking"
-        options={{
-          title: t('navigation.ranking'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="podium" size={size} color={color} />
-          ),
-          headerTitle: t('ranking.title'),
-        }}
-      />
-      <Tabs.Screen
         name="settings"
         options={{
           title: t('navigation.settings'),

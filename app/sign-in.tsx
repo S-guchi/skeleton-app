@@ -19,7 +19,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function SignInScreen() {
   const [isLoading, setIsLoading] = useState(false);
-  const [usakoMessage, setUsakoMessage] = useState("うさこの家事ノートへおかえりなさいうさ〜！");
+  const [statusMessage, setStatusMessage] = useState("家事ノートへおかえりなさい！");
   const { signIn, isAuthLoading } = useSession();
   const insets = useSafeAreaInsets();
 
@@ -37,21 +37,21 @@ export default function SignInScreen() {
 
   const onSubmit = async (data: LoginFormData) => {
     if (!data || !data.email || !data.password) {
-      setUsakoMessage("メールアドレスとパスワードを入力してほしいうさ〜！");
-      Alert.alert("うさこからのお知らせ", "メールアドレスとパスワードを入力してほしいうさ〜！");
+      setStatusMessage("メールアドレスとパスワードを入力してください！");
+      Alert.alert("エラー", "メールアドレスとパスワードを入力してください！");
       return;
     }
 
     setIsLoading(true);
-    setUsakoMessage("ログイン中うさ〜。ちょっと待っててね！");
+    setStatusMessage("ログイン中です。少々お待ちください！");
 
     try {
       await signIn(data.email, data.password);
-      setUsakoMessage("おかえりなさいうさ〜！いっしょに家事をがんばろうね！");
+      setStatusMessage("おかえりなさい！一緒に家事をがんばりましょう！");
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "ログインに失敗しちゃったうさ。メールアドレスとパスワードを確認してほしいうさ〜。";
-      setUsakoMessage("あれ？ログインできないうさ。メールアドレスとパスワードを確認してみてうさ〜。");
-      Alert.alert("うさこからのお知らせ", errorMessage);
+      setStatusMessage("ログインに失敗しました。メールアドレスとパスワードを確認してください。");
+      Alert.alert("エラー", errorMessage);
     } finally {
       // 常にローカルのローディング状態をリセット
       setIsLoading(false);
@@ -64,7 +64,7 @@ export default function SignInScreen() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       className="flex-1"
     >
-      <ScrollView className="flex-1 bg-usako-accent1 dark:bg-gray-900">
+      <ScrollView className="flex-1 bg-blue-100 dark:bg-gray-900">
         <View className="flex-1 px-6" style={{ paddingTop: insets.top + 16, paddingBottom: 32 }}>
           {/* 戻るボタン */}
           <TouchableOpacity
@@ -72,35 +72,33 @@ export default function SignInScreen() {
             className="self-start mb-6 p-2"
           >
             <View className="flex-row items-center">
-              <Ionicons name="arrow-back" size={24} color="#FF90BB" />
-              <Text className="text-usako-primary ml-2 font-medium">戻る</Text>
+              <Ionicons name="arrow-back" size={24} color="#3B82F6" />
+              <Text className="text-blue-500 ml-2 font-medium">戻る</Text>
             </View>
           </TouchableOpacity>
 
-          {/* うさこのキャラクター */}
+          {/* アプリアイコン */}
           <View className="items-center mb-4">
-            <Image
-              source={require("@/assets/images/usako_home.png")}
-              style={{ width: 80, height: 80 }}
-              resizeMode="contain"
-            />
+            <View className="w-20 h-20 bg-blue-500 dark:bg-blue-600 rounded-full items-center justify-center">
+              <Text className="text-4xl">📝</Text>
+            </View>
           </View>
 
-          {/* うさこのメッセージ */}
+          {/* ステータスメッセージ */}
           <View className="mb-6 px-4">
             <View className="bg-white dark:bg-gray-800 border-2 border-gray-800 dark:border-gray-700 rounded-xl px-4 py-3">
               <Text className="text-gray-800 dark:text-gray-200 text-sm font-medium text-center">
-                {usakoMessage}
+                {statusMessage}
               </Text>
             </View>
           </View>
 
           <View className="mb-8">
-            <Text className="text-3xl font-bold text-usako-primary dark:text-usako-primary-light mb-2 text-center">
-              うさこの家事ノート
+            <Text className="text-3xl font-bold text-blue-500 dark:text-blue-400 mb-2 text-center">
+              家事ノート
             </Text>
             <Text className="text-gray-600 dark:text-gray-400 text-center">
-              おかえりなさいうさ〜！
+              おかえりなさい！
             </Text>
           </View>
 
@@ -160,8 +158,8 @@ export default function SignInScreen() {
 
           <Link href="/forgot-password" asChild>
             <TouchableOpacity className="mb-6">
-              <Text className="text-usako-primary dark:text-usako-primary-light text-sm text-right">
-                パスワードを忘れちゃったうさ？
+              <Text className="text-blue-500 dark:text-blue-400 text-sm text-right">
+                パスワードを忘れましたか？
               </Text>
             </TouchableOpacity>
           </Link>
@@ -169,10 +167,10 @@ export default function SignInScreen() {
           <Button
             onPress={handleSubmit(onSubmit)}
             disabled={isLoading || isAuthLoading}
-            className="mb-4 bg-usako-primary hover:bg-usako-primary-dark"
+            className="mb-4 bg-blue-500 hover:bg-blue-600"
           >
             <Text className="text-white font-semibold text-center">
-              {(isLoading || isAuthLoading) ? "ログイン中うさ..." : "ログインうさ！"}
+              {(isLoading || isAuthLoading) ? "ログイン中..." : "ログイン"}
             </Text>
           </Button>
 
@@ -183,8 +181,8 @@ export default function SignInScreen() {
             </Text>
             <Link href="/sign-up" asChild>
               <TouchableOpacity className="ml-1">
-                <Text className="text-usako-primary dark:text-usako-primary-light font-semibold">
-                  新規登録うさ
+                <Text className="text-blue-500 dark:text-blue-400 font-semibold">
+                  新規登録
                 </Text>
               </TouchableOpacity>
             </Link>

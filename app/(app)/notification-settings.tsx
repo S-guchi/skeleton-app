@@ -4,7 +4,7 @@ import { useNotificationStore } from "@/lib/contexts/NotificationContext";
 import { cancelAllNotifications, registerForPushNotificationsAsync, scheduleDailyReminder, cancelDailyReminder } from "@/lib/utils/notifications";
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
-import { Alert, Image, ScrollView, Switch, Text, View } from "react-native";
+import { Alert, ScrollView, Switch, Text, View } from "react-native";
 
 export default function NotificationSettingsScreen() {
   const [isLoadingPermission, setIsLoadingPermission] = useState(false);
@@ -29,7 +29,7 @@ export default function NotificationSettingsScreen() {
         setNotificationEnabled(true);
         Alert.alert(
           "成功",
-          "通知が有効になりました！うさ〜"
+          "通知が有効になりました！"
         );
       } else {
         Alert.alert(
@@ -110,7 +110,7 @@ export default function NotificationSettingsScreen() {
                   通知を許可
                 </Text>
                 <Text className="text-sm text-gray-600 dark:text-gray-400">
-                  うさこからのお知らせを受け取る
+                  アプリからのお知らせを受け取る
                 </Text>
               </View>
               <Switch
@@ -124,8 +124,8 @@ export default function NotificationSettingsScreen() {
                   }
                 }}
                 disabled={isLoadingPermission}
-                trackColor={{ false: "#767577", true: "#FF90BB" }}
-                thumbColor={isNotificationEnabled ? "#FFC1DA" : "#f4f3f4"}
+                trackColor={{ false: "#767577", true: "#3B82F6" }}
+                thumbColor={isNotificationEnabled ? "#60A5FA" : "#f4f3f4"}
               />
             </View>
           </Card>
@@ -143,7 +143,7 @@ export default function NotificationSettingsScreen() {
                 <Card key={index} className="mb-3 p-4">
                   <View className="flex-row items-center justify-between">
                     <View className="flex-row items-center flex-1">
-                      <View className="w-10 h-10 bg-pink-100 dark:bg-pink-900 rounded-full items-center justify-center mr-3">
+                      <View className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full items-center justify-center mr-3">
                         <Ionicons
                           name={setting.icon as any}
                           size={20}
@@ -186,17 +186,15 @@ export default function NotificationSettingsScreen() {
             </>
           )}
 
-          {/* うさこ */}
+          {/* 情報 */}
           <View className="mt-8 items-center">
-            <Image
-              source={require("@/assets/images/usako_home.png")}
-              className="w-16 h-16 mb-2"
-              style={{ width: 64, height: 64 }}
-            />
+            <View className="w-16 h-16 mb-2 bg-blue-500 rounded-full items-center justify-center">
+              <Ionicons name="notifications" size={32} color="white" />
+            </View>
             <Text className="text-sm text-gray-500 dark:text-gray-400">
               {isNotificationEnabled
-                ? "通知でお知らせするうさ〜！"
-                : "通知を設定してうさ〜"}
+                ? "通知でお知らせします！"
+                : "通知を設定してください"}
             </Text>
           </View>
         </View>

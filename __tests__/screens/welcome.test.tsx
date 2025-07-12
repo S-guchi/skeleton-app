@@ -55,15 +55,14 @@ describe('WelcomeScreen', () => {
       render(<WelcomeScreen />);
 
       // タイトルが存在することを確認
-      expect(screen.getByText('うさこの家事ノート')).toBeTruthy();
+      expect(screen.getByText('Skeleton App')).toBeTruthy();
 
       // カルーセルスライドのタイトルが存在することを確認
-      expect(screen.getByText('うさこの家事ノートへようこそ！')).toBeTruthy();
+      expect(screen.getByText('ようこそ！')).toBeTruthy();
 
       // ボタンが存在することを確認
       expect(screen.getByText('はじめる')).toBeTruthy();
-      expect(screen.getByText('招待された方はこちら')).toBeTruthy();
-      expect(screen.getByText('メールアドレスでログイン')).toBeTruthy();
+      expect(screen.getByText('ログイン')).toBeTruthy();
     });
 
     it('カルーセルエリアの高さが動的に設定されている', () => {
@@ -100,8 +99,7 @@ describe('WelcomeScreen', () => {
 
       // すべてのメインコンテンツが表示されることを確認
       expect(screen.getByText('はじめる')).toBeTruthy();
-      expect(screen.getByText('招待された方はこちら')).toBeTruthy();
-      expect(screen.getByText('メールアドレスでログイン')).toBeTruthy();
+      expect(screen.getByText('ログイン')).toBeTruthy();
     });
   });
 });

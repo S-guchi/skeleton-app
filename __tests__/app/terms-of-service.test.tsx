@@ -40,7 +40,7 @@ describe('TermsOfServiceScreen', () => {
 
   it('アプリ名が表示される', () => {
     render(<TermsOfServiceScreen />);
-    expect(screen.getByText(/うさこ家事共有アプリ/)).toBeTruthy();
+    expect(screen.getByText(/{{APP_NAME}}/)).toBeTruthy();
   });
 
   it('各条項のタイトルが表示される', () => {

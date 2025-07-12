@@ -1,4 +1,5 @@
 英語で考えて、ターミナルは日本語で出力して
+作業終了後はSOWをdocs/に作成してください。ファイル形式はyyyymmdd_<title>.mdです。
 
 # CLAUDE.md
 
@@ -6,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-共同生活における家事の負担を可視化し、楽しく家事に参加できる仕組みを提供するReact Native + Expoアプリ。SupabaseをバックエンドとしてBaaSアーキテクチャを採用。
+React Native + Expo + Supabaseを使用したモバイルアプリケーション開発のためのスケルトンテンプレート。認証、データ管理、基本的なUI構造を含み、新しいアプリ開発の基盤として利用できます。
 
 ## 開発コマンド
 
@@ -65,9 +66,9 @@ npm run db:remote-reset # リモートDBリセット（開発時のみ）
 
 ### データモデルの概要
 
-- **世帯 (households)** - ルームシェアグループの単位
-- **家事 (chores)** - 家事項目マスター（報酬額設定可能）
-- **家事記録 (chore_logs)** - 実行記録（ポイント計算の基準）
+- **グループ (groups)** - チームやプロジェクトグループの単位
+- **タスク (tasks)** - タスク項目マスター
+- **タスク記録 (task_logs)** - 実行記録
 - **ランキング** - 期間別集計ビュー（日次・週次・月次・全期間）
 
 ### 認証・権限設計
@@ -75,9 +76,7 @@ npm run db:remote-reset # リモートDBリセット（開発時のみ）
 - **Supabase Auth使用**: Row Level Security (RLS) 実装済み
 - **段階的認証**: 匿名認証 → メールアカウントのアップグレード可能
 - **責務分離**: SessionContext（認証状態） + UserContext（ユーザーデータ）
-- **世帯システム**: 管理者とメンバーの権限分離、招待システム
-
-詳細: [AUTHENTICATION.md](./docs/AUTHENTICATION.md)
+- **グループシステム**: 管理者とメンバーの権限分離、招待システム
 
 ### 状態管理パターン
 
@@ -106,10 +105,10 @@ const SessionProvider = ({ children }) => {
 
 ### UIパターン
 
-- カスタムカラーパレット使用（うさこテーマ）
+- カスタマイズ可能なカラーパレット（環境変数対応）
 - ボトムタブナビゲーション
-- 家事記録はワンタップ操作を重視
-- グラフ表示にはReact Native Chart Kitを使用
+- ダークモード対応
+- レスポンシブデザイン
 
 ## 開発時の注意点
 
@@ -122,7 +121,7 @@ const SessionProvider = ({ children }) => {
 
 - `lib/locales/`に翻訳ファイル
 - 日本語がデフォルト、英語対応
-- マスコットキャラクター「うさこ」の語尾「うさ〜」は日本語固有
+- 環境変数によるアプリ名のカスタマイズ対応
 
 ### Supabase開発
 
@@ -135,3 +134,15 @@ const SessionProvider = ({ children }) => {
 - TypeScript strict mode有効
 - ESLint (expo preset) 使用
 - すべてのAPIレスポンスにZodバリデーション適用
+
+### カスタマイズ
+
+- `.env`ファイルでアプリ名、カラーパレット、外部URL等を設定
+- `app.json`のプレースホルダーを環境変数で置換
+- 各画面のサンプルデータを実際のデータに置換
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.

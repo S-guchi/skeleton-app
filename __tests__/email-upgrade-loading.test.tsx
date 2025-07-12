@@ -159,7 +159,7 @@ describe('EmailUpgradeScreen - Loading State Management', () => {
     // エラーアラートが表示されることを確認
     await waitFor(() => {
       expect(Alert.alert).toHaveBeenCalledWith(
-        'うさこからのお知らせ',
+        '{{APP_NAME}}からのお知らせ',
         'アップグレードに失敗しました'
       );
     });

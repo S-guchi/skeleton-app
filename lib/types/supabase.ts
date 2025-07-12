@@ -1,15 +1,23 @@
+/**
+ * Supabaseデータベースの型定義
+ * 認証機能とユーザー管理に必要な最小限のテーブル定義
+ */
 export interface Database {
   public: {
     Tables: {
+      /**
+       * ユーザー基本情報テーブル
+       * 認証されたユーザーのプロフィール情報を管理
+       */
       users: {
         Row: {
-          id: string;
-          name: string | null;
-          display_name: string | null;
-          avatar_url: string | null;
-          is_provider: boolean;
-          created_at: string;
-          updated_at: string;
+          id: string;                    // ユーザーID（Supabase Auth User IDと連携）
+          name: string | null;           // ユーザー名（実名）
+          display_name: string | null;   // 表示名（ニックネーム）
+          avatar_url: string | null;     // アバター画像URL
+          is_provider: boolean;          // 外部プロバイダー認証フラグ
+          created_at: string;            // 作成日時
+          updated_at: string;            // 更新日時
         };
         Insert: {
           id: string;
@@ -28,143 +36,6 @@ export interface Database {
           is_provider?: boolean;
           created_at?: string;
           updated_at?: string;
-        };
-      };
-      households: {
-        Row: {
-          id: string;
-          name: string;
-          description: string | null;
-          settlement_day: number;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id?: string;
-          name: string;
-          description?: string | null;
-          settlement_day?: number;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: {
-          id?: string;
-          name?: string;
-          description?: string | null;
-          settlement_day?: number;
-          created_at?: string;
-          updated_at?: string;
-        };
-      };
-      household_members: {
-        Row: {
-          id: string;
-          household_id: string;
-          user_id: string;
-          role: 'admin' | 'member';
-          joined_at: string;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id?: string;
-          household_id: string;
-          user_id: string;
-          role?: 'admin' | 'member';
-          joined_at?: string;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: {
-          id?: string;
-          household_id?: string;
-          user_id?: string;
-          role?: 'admin' | 'member';
-          joined_at?: string;
-          created_at?: string;
-          updated_at?: string;
-        };
-      };
-      chores: {
-        Row: {
-          id: string;
-          household_id: string;
-          name: string;
-          reward_amount: number;
-          order_index: number;
-          is_active: boolean;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id?: string;
-          household_id: string;
-          name: string;
-          reward_amount?: number;
-          order_index?: number;
-          is_active?: boolean;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: {
-          id?: string;
-          household_id?: string;
-          name?: string;
-          reward_amount?: number;
-          order_index?: number;
-          is_active?: boolean;
-          created_at?: string;
-          updated_at?: string;
-        };
-      };
-      chore_logs: {
-        Row: {
-          id: string;
-          household_id: string;
-          chore_id: string;
-          performed_by: string;
-          performed_at: string;
-          reward_amount: number | null;
-          note: string | null;
-          is_verified: boolean;
-          verified_by: string | null;
-          verified_at: string | null;
-          created_at: string;
-          updated_at: string;
-          chore_name: string | null;
-          chore_reward_amount: number | null;
-        };
-        Insert: {
-          id?: string;
-          household_id: string;
-          chore_id: string;
-          performed_by: string;
-          performed_at?: string;
-          reward_amount?: number | null;
-          note?: string | null;
-          is_verified?: boolean;
-          verified_by?: string | null;
-          verified_at?: string | null;
-          created_at?: string;
-          updated_at?: string;
-          chore_name?: string | null;
-          chore_reward_amount?: number | null;
-        };
-        Update: {
-          id?: string;
-          household_id?: string;
-          chore_id?: string;
-          performed_by?: string;
-          performed_at?: string;
-          reward_amount?: number | null;
-          note?: string | null;
-          is_verified?: boolean;
-          verified_by?: string | null;
-          verified_at?: string | null;
-          created_at?: string;
-          updated_at?: string;
-          chore_name?: string | null;
-          chore_reward_amount?: number | null;
         };
       };
     };
@@ -259,4 +130,8 @@ export type Enums<
     ? Database["public"]["Enums"][PublicEnumNameOrOptions]
     : never;
 
+/**
+ * ユーザー型
+ * usersテーブルのRow型のエイリアス
+ */
 export type User = Tables<'users'>;

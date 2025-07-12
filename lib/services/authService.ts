@@ -152,7 +152,7 @@ export async function updateUserProfile(userId: string, updates: Partial<AuthUse
 }
 
 /**
- * ユーザー情報を取得（世帯情報含む）
+ * ユーザー情報を取得
  */
 export async function fetchUserWithHousehold(userId: string): Promise<AuthUser | null> {
   try {
@@ -174,25 +174,14 @@ export async function fetchUserWithHousehold(userId: string): Promise<AuthUser |
       return null;
     }
 
-    // 世帯メンバー情報を取得
-    const { data: memberData, error: memberError } = await supabase
-      .from('household_members')
-      .select('household_id')
-      .eq('user_id', userId)
-      .single();
-
-    // 世帯に参加していない場合はエラーにしない
-    const householdId = memberError ? null : memberData?.household_id;
-
     return {
       id: userData.id,
       name: userData.name,
       avatar_url: userData.avatar_url,
-      hasCompletedOnboarding: !!householdId, // 世帯に参加していればオンボーディング完了
-      householdId,
+      hasCompletedOnboarding: true, // Skeleton appでは常にオンボーディング完了
     };
   } catch (error) {
-    console.error('Failed to fetch user with household:', error);
+    console.error('Failed to fetch user:', error);
     return null;
   }
 }
@@ -211,33 +200,7 @@ export async function deleteAccount(): Promise<void> {
 
     console.log('🗑️ Starting account deletion for user:', user.id);
 
-    // 1. 関連する家事ログを削除（外部キー制約があるため先に削除）
-    const { error: choreLogsError } = await supabase
-      .from('chore_logs')
-      .delete()
-      .eq('user_id', user.id);
-
-    if (choreLogsError) {
-      console.error('Failed to delete chore logs:', choreLogsError);
-      // 家事ログがない場合は問題ないので続行
-    } else {
-      console.log('✅ Chore logs deleted successfully');
-    }
-
-    // 2. 世帯メンバーから削除
-    const { error: memberError } = await supabase
-      .from('household_members')
-      .delete()
-      .eq('user_id', user.id);
-
-    if (memberError) {
-      console.error('Failed to remove from household:', memberError);
-      throw new Error('世帯からの退会に失敗しました');
-    } else {
-      console.log('✅ Removed from household successfully');
-    }
-
-    // 3. ユーザープロファイルを削除
+    // ユーザープロファイルを削除
     const { error: profileError } = await supabase
       .from('users')
       .delete()
@@ -254,7 +217,7 @@ export async function deleteAccount(): Promise<void> {
       console.log('✅ User profile deleted successfully');
     }
 
-    // 4. アプリからサインアウト
+    // アプリからサインアウト
     await signOut();
     console.log('✅ Account deletion completed successfully');
 

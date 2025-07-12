@@ -241,15 +241,11 @@ describe('authService', () => {
       expect(mockSupabase.auth.signOut).not.toHaveBeenCalled();
     });
 
-    it('ユーザー情報と世帯情報を正常に取得する', async () => {
+    it('ユーザー情報を正常に取得する', async () => {
       const mockUserData = {
         id: 'test-user-id',
         name: 'Test User',
         avatar_url: 'https://example.com/avatar.jpg',
-      };
-
-      const mockMemberData = {
-        household_id: 'test-household-id',
       };
 
       mockSupabase.from.mockImplementation((table) => {
@@ -259,17 +255,6 @@ describe('authService', () => {
               eq: jest.fn().mockReturnValue({
                 single: jest.fn().mockResolvedValue({
                   data: mockUserData,
-                  error: null,
-                }),
-              }),
-            }),
-          };
-        } else if (table === 'household_members') {
-          return {
-            select: jest.fn().mockReturnValue({
-              eq: jest.fn().mockReturnValue({
-                single: jest.fn().mockResolvedValue({
-                  data: mockMemberData,
                   error: null,
                 }),
               }),
@@ -286,7 +271,6 @@ describe('authService', () => {
         name: 'Test User',
         avatar_url: 'https://example.com/avatar.jpg',
         hasCompletedOnboarding: true,
-        householdId: 'test-household-id',
       });
     });
 
@@ -314,7 +298,7 @@ describe('authService', () => {
       expect(mockSupabase.auth.signOut).not.toHaveBeenCalled();
     });
 
-    it('世帯に参加していない場合、hasCompletedOnboardingがfalseになる', async () => {
+    it('skeleton appでは常にhasCompletedOnboardingがtrueになる', async () => {
       const mockUserData = {
         id: 'test-user-id',
         name: 'Test User',
@@ -333,17 +317,6 @@ describe('authService', () => {
               }),
             }),
           };
-        } else if (table === 'household_members') {
-          return {
-            select: jest.fn().mockReturnValue({
-              eq: jest.fn().mockReturnValue({
-                single: jest.fn().mockResolvedValue({
-                  data: null,
-                  error: { message: 'No household membership found' },
-                }),
-              }),
-            }),
-          };
         }
         return {};
       });
@@ -354,8 +327,7 @@ describe('authService', () => {
         id: 'test-user-id',
         name: 'Test User',
         avatar_url: null,
-        hasCompletedOnboarding: false,
-        householdId: null,
+        hasCompletedOnboarding: true,
       });
     });
   });
@@ -368,7 +340,7 @@ describe('authService', () => {
         error: null,
       });
 
-      // 各テーブルからの削除をモック
+      // ユーザーテーブルからの削除をモック
       mockSupabase.from.mockReturnValue({
         delete: jest.fn().mockReturnValue({
           eq: jest.fn().mockResolvedValue({ error: null }),
@@ -380,8 +352,6 @@ describe('authService', () => {
       });
 
       await expect(deleteAccount()).resolves.not.toThrow();
-      expect(mockSupabase.from).toHaveBeenCalledWith('chore_logs');
-      expect(mockSupabase.from).toHaveBeenCalledWith('household_members');
       expect(mockSupabase.from).toHaveBeenCalledWith('users');
       expect(mockSupabase.auth.signOut).toHaveBeenCalled();
     });
@@ -402,26 +372,13 @@ describe('authService', () => {
         error: null,
       });
 
-      // 家事ログとメンバー削除は成功
-      let callCount = 0;
-      mockSupabase.from.mockImplementation((table) => {
-        callCount++;
-        if (callCount <= 2) {
-          return {
-            delete: jest.fn().mockReturnValue({
-              eq: jest.fn().mockResolvedValue({ error: null }),
-            }),
-          };
-        } else {
-          // ユーザー削除でRLSエラー
-          return {
-            delete: jest.fn().mockReturnValue({
-              eq: jest.fn().mockResolvedValue({
-                error: { code: '42501', message: 'RLS policy violation' },
-              }),
-            }),
-          };
-        }
+      // ユーザー削除でRLSエラー
+      mockSupabase.from.mockReturnValue({
+        delete: jest.fn().mockReturnValue({
+          eq: jest.fn().mockResolvedValue({
+            error: { code: '42501', message: 'RLS policy violation' },
+          }),
+        }),
       });
 
       await expect(deleteAccount()).rejects.toThrow('ユーザーデータの削除権限がありません。管理者にお問い合わせください。');
