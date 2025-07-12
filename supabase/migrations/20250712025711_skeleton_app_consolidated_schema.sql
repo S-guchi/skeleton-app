@@ -141,7 +141,22 @@ CREATE POLICY "Users can delete own profile"
     USING (("auth"."uid"() = "id"));
 
 -- ==============================================
--- 6. STORAGE POLICIES
+-- 6. STORAGE BUCKETS
+-- ==============================================
+
+-- Create users bucket for avatar storage
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES (
+  'users', 
+  'users', 
+  true, 
+  5242880, -- 5MB limit
+  ARRAY['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp']
+)
+ON CONFLICT (id) DO NOTHING;
+
+-- ==============================================
+-- 7. STORAGE POLICIES
 -- ==============================================
 
 -- Users can upload their own avatars
@@ -209,7 +224,7 @@ USING (
 );
 
 -- ==============================================
--- 7. PERMISSIONS
+-- 8. PERMISSIONS
 -- ==============================================
 
 -- Grant permissions
