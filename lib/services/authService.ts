@@ -154,7 +154,7 @@ export async function updateUserProfile(userId: string, updates: Partial<AuthUse
 /**
  * ユーザー情報を取得
  */
-export async function fetchUserWithHousehold(userId: string): Promise<AuthUser | null> {
+export async function fetchUser(userId: string): Promise<AuthUser | null> {
   try {
     // ユーザー基本情報を取得
     const { data: userData, error: userError } = await supabase

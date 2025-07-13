@@ -76,9 +76,6 @@ export default function WelcomeScreen() {
     }
   };
 
-  const handleJoinHousehold = () => {
-    router.push("/sign-in");
-  };
 
   const renderSlide = ({ item }: { item: typeof appIntroSlides[0] }) => (
     <View style={{ width: screenWidth }} className="items-center justify-center px-6">
@@ -215,7 +212,7 @@ export default function WelcomeScreen() {
 
           {/* サインインボタン */}
           <TouchableOpacity
-            onPress={handleJoinHousehold}
+            onPress={() => router.push("/sign-in")}
             className={`border-2 border-blue-300 ${buttonPadding} px-6 rounded-2xl bg-white ${isSmallScreen ? 'mb-2' : 'mb-3'}`}
             style={{
               shadowColor: '#3B82F6',

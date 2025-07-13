@@ -22,7 +22,6 @@ export interface TranslationKeys {
   };
   navigation: {
     home: string;
-    record: string;
     history: string;
     ranking: string;
     settings: string;
@@ -51,52 +50,17 @@ export interface TranslationKeys {
   onboarding: {
     welcome: string;
     subtitle: string;
-    createHousehold: string;
-    joinHousehold: string;
-    householdName: string;
-    inviteCode: string;
-    createHouseholdSuccess: string;
-    joinHouseholdSuccess: string;
-    householdNameRequired: string;
-    inviteCodeRequired: string;
-    invalidInviteCode: string;
   };
   home: {
     title: string;
-    thisMonth: string;
-    myTotal: string;
-    householdTotal: string;
-    yen: string;
-    noChoresYet: string;
-    startRecording: string;
-    recordChore: string;
-    viewHistory: string;
-    viewRanking: string;
     welcomeBack: string;
+    greeting: string;
+    viewHistory: string;
+    thisMonth: string;
     todayProgress: string;
     weeklyProgress: string;
     monthlyProgress: string;
-    greeting: string;
     weeklyTrend: string;
-    points: string;
-    times: string;
-  };
-  record: {
-    title: string;
-    selectChore: string;
-    addNote: string;
-    notePlaceholder: string;
-    recordSuccess: string;
-    selectChoreFirst: string;
-    recordingChore: string;
-    goodJob: string;
-    noChoresAvailable: string;
-    addChoreFirst: string;
-    rewardAmount: string;
-    choreGreeting: string;
-    choreQuestion: string;
-    record: string;
-    manageChores: string;
   };
   history: {
     title: string;
@@ -107,13 +71,11 @@ export interface TranslationKeys {
     all: string;
     filterBy: string;
     noRecords: string;
-    completedBy: string;
     at: string;
     note: string;
     deleteRecord: string;
     deleteConfirm: string;
     deleteSuccess: string;
-    totalAmount: string;
   };
   ranking: {
     title: string;
@@ -123,16 +85,11 @@ export interface TranslationKeys {
     lastMonth: string;
     allTime: string;
     noData: string;
-    points: string;
-    times: string;
     rank: string;
-    otherRankings: string;
-    encouragement: string;
   };
   settings: {
     title: string;
     profile: string;
-    household: string;
     language: string;
     notifications: string;
     privacy: string;
@@ -143,54 +100,10 @@ export interface TranslationKeys {
     logout: string;
     logoutConfirm: string;
     editProfile: string;
-    householdSettings: string;
-    manageMembers: string;
-    manageChores: string;
-    settlementDay: string;
     changeLanguage: string;
     japanese: string;
     english: string;
     languageChanged: string;
-  };
-  chores: {
-    title: string;
-    addChore: string;
-    editChore: string;
-    choreName: string;
-    rewardAmount: string;
-    choreNameRequired: string;
-    rewardAmountRequired: string;
-    rewardAmountInvalid: string;
-    addSuccess: string;
-    editSuccess: string;
-    deleteSuccess: string;
-    deleteConfirm: string;
-    noChores: string;
-    createFirst: string;
-    examples: string;
-    rewardAmountHint: string;
-  };
-  members: {
-    title: string;
-    inviteMembers: string;
-    inviteCode: string;
-    generateCode: string;
-    copyCode: string;
-    codeGenerated: string;
-    codeCopied: string;
-    shareCode: string;
-    codeExpires: string;
-    members: string;
-    role: string;
-    admin: string;
-    member: string;
-    joinedAt: string;
-    changeRole: string;
-    removeMember: string;
-    removeConfirm: string;
-    removeSuccess: string;
-    cannotRemoveSelf: string;
-    cannotRemoveLastAdmin: string;
   };
   errors: {
     networkError: string;

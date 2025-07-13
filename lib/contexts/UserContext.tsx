@@ -3,7 +3,7 @@ import type { AuthUser, UserContextType, UserUpdate } from '../types/auth/user';
 import { useSession } from './SessionContext';
 import { 
   updateUserProfile, 
-  fetchUserWithHousehold 
+  fetchUser 
 } from '../services/authService';
 
 const UserContext = createContext<UserContextType>({
@@ -41,7 +41,7 @@ export function UserProvider({ children }: PropsWithChildren) {
   const loadUserData = async (userId: string) => {
     setIsUserLoading(true);
     try {
-      const userData = await fetchUserWithHousehold(userId);
+      const userData = await fetchUser(userId);
       setUser(userData);
     } catch (error) {
       console.error('Failed to load user data:', error);

@@ -1,3 +1,2 @@
 // Export all query functions
-export * from './ranking';
-export * from './chores';
+// This file can be used to export query functions when needed

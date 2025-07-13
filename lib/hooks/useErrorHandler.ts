@@ -21,14 +21,6 @@ const ERROR_MESSAGES: { [key: string]: string } = {
   
   // 削除済み: 世帯関連エラー（household機能除去のため）
   
-  // 家事関連エラー
-  'Chore not found': '家事項目が見つかりません',
-  'Invalid chore data': '家事データが無効です',
-  
-  // ランキング関連エラー
-  'Ranking data not found': 'ランキングデータが見つかりません',
-  'Invalid ranking period': 'ランキング期間が無効です',
-  
   // 一般的なエラー
   'Permission denied': '権限がありません',
   'Invalid input': '入力データが無効です',

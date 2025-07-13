@@ -32,9 +32,6 @@ export default function AppLayout() {
       }}
     >
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="chores" options={{ headerShown: false }} />
-      <Stack.Screen name="chores/new" options={{ headerShown: false }} />
-      <Stack.Screen name="members" options={{ headerShown: false }} />
       <Stack.Screen name="notification-settings" options={{ 
         headerShown: true,
         title: "通知設定",
